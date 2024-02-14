@@ -6,6 +6,7 @@ use Core\BaseController;
 use Core\Helpers\SmartGeneral;
 use Core\Helpers\SmartData as Data;
 use Core\Helpers\SmartLogger as Logger;
+use Site\Helpers\BackupHelper;
 use Site\Helpers\MeetRoomHelper;
 // site helpers
 use Site\Helpers\UserHelper;
@@ -132,6 +133,23 @@ class AuthController extends BaseController{
         $db->role =  $roles;
         return $db;
     }
+
+    private function updateVisitorCount(){
+        $key = "SITE_VISITOR_COUNT";
+        $exists_data = $this->_site_helper->getOneSettingData($key);
+        $data = [];
+        if(!$exists_data){
+            $columns = [ "setting_name","setting_value","created_by"];
+            $data["setting_name"] = $key;
+            $data["setting_value"] = 1;
+            $id = $this->_site_helper->insert($columns,$data);
+        }else{
+            $id = $exists_data->ID;
+            $columns =  [ "setting_value","last_modified_time"];
+            $data["setting_value"] = intval($exists_data->setting_value) + 1;
+            $this->_site_helper->update($columns,$data,$id);
+        }
+    }
     /**
      * 
      */
@@ -168,6 +186,8 @@ class AuthController extends BaseController{
         $this->_user_helper->updateLastLogin($user_data->ID); 
         // user data
         $user_data->role = $userid!="admin"? ["USER"]:["ADMIN"];  
+        // updating the visitor count
+        $this->updateVisitorCount();
         //
         $this->addLog("LOGIN","",$user_data->ename); 
         //
@@ -223,6 +243,12 @@ class AuthController extends BaseController{
     public function getSiteSettings(){
         $settings = isset($GLOBALS["SD_SITE_SETTINGS"]) ? $GLOBALS["SD_SITE_SETTINGS"] : [];
         $this->response($settings);
+    }
+
+    public function takeBackup(){
+        $backup = new BackupHelper($this->db);
+        $backup_file = "test.sql";
+        $backup->doBackUp($backup_file);
     }
    
 

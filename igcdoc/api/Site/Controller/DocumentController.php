@@ -72,6 +72,8 @@ class DocumentController extends BaseController{
             $columns[] = "wo_type";
             $columns[] = "wo_start_from";
             $columns[] = "wo_start_to";
+            $columns[] = "contractor_name";
+            $columns[] = "work_type";
             $this->post["wo_start_from"] = Data::post_data("wo_start_from", "DATE");
             $this->post["wo_start_to"] = Data::post_data("wo_start_to", "DATE");
         }  

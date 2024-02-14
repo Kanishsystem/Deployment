@@ -39,6 +39,8 @@ class DocumentHelper extends BaseHelper
         "wo_type"=>SmartConst::SCHEMA_VARCHAR,
         "wo_start_from"=>SmartConst::SCHEMA_VARCHAR,
         "wo_start_to"=>SmartConst::SCHEMA_VARCHAR,
+        "contractor_name"=>SmartConst::SCHEMA_VARCHAR,
+        "work_type"=>SmartConst::SCHEMA_VARCHAR,
         "doc_status" => SmartConst::SCHEMA_INTEGER,
         "created_by" => SmartConst::SCHEMA_CUSER_ID,
         "app_id" => SmartConst::SCHEMA_INTEGER,

@@ -29,6 +29,7 @@ class CommonRouter
         $this->_routes["/auth/user_reset"] = [SmartConst::REQUEST_POST, $controller, "userReset"];
         $this->_routes["/auth/get_log"] = [SmartConst::REQUEST_POST, $controller, "getLog"];
         $this->_routes["/auth/get_settings"] = [SmartConst::REQUEST_GET, $controller, "getSiteSettings"];
+        $this->_routes["/auth/do_backup"] = [SmartConst::REQUEST_GET, $controller, "takeBackup"];
     }
 
     private function dashboard_routes()
@@ -501,6 +502,15 @@ class CommonRouter
         $this->_routes["/license/delete_one"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"deleteOne"];
         $this->_routes["/license/get_doc"] = [SmartConst::REQUEST_POST,$controller,"getDoc"];
     }
+
+    private function home_forms_routes(){
+        $controller = "HomeformsController";       
+        $this->_routes["/homeforms/insert"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"insert"];
+        $this->_routes["/homeforms/get_all"] = [SmartConst::REQUEST_GET,$controller,"getAll"]; 
+        $this->_routes["/homeforms/get_one"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"getOne"];
+        $this->_routes["/homeforms/delete_one"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"deleteOne"];
+        $this->_routes["/homeforms/get_doc"] = [SmartConst::REQUEST_POST,$controller,"getDoc"];
+    }
     private function awards_routes(){
         $controller = "AwardsController";       
         $this->_routes["/awards/insert"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"insert"];
@@ -575,6 +585,7 @@ class CommonRouter
         $this->elec_shutdown_routes();
         $this->home_images();
         $this->license_routes();
+        $this->home_forms_routes();
         $this->awards_routes();
         $this->meet_proposal_routes();
         $this->gallery_routes();

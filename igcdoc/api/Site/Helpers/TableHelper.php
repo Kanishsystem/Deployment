@@ -15,10 +15,11 @@ namespace Site\Helpers;
  *
  * @author kms
  */
-class TableHelper {
+class TableHelper
+{
 
-   const  USERS="sd_mt_userdb";
-   const  ROLES="sd_mt_role";
+   const  USERS = "sd_mt_userdb";
+   const  ROLES = "sd_mt_role";
    const DOCS = "sd_doc_list";
    const DOCS_PERMISSION = "sd_doc_list_permission";
    const DOC_AUTHORS = "sd_doc_authors";
@@ -44,9 +45,9 @@ class TableHelper {
    const ELECTRICAL_SHUTDOWN = "sd_electrical_shutdown";
    const HOME_IMAGES = "sd_home_images";
    const LICENSE = "sd_license";
+   const HOME_FORMS = "sd_homeforms";
    const AWARDS = "sd_awards";
    const MEET_PROPOSAL = "sd_meet_proposal";
-   const GALLERY = "sd_gallery"; 
-   const HISTORY = "sd_history"; 
-
+   const GALLERY = "sd_gallery";
+   const HISTORY = "sd_history";
 }
