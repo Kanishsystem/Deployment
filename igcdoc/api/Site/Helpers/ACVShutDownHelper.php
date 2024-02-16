@@ -26,8 +26,8 @@ class ACVShutDownHelper extends BaseHelper
 {
 
     const schema = [
-        "from_date" => SmartConst::SCHEMA_CDATETIME,
-        "to_date" => SmartConst::SCHEMA_CDATETIME,
+        "from_date" => SmartConst::SCHEMA_DATE,
+        "to_date" => SmartConst::SCHEMA_DATE,
         "from_time" => SmartConst::SCHEMA_CTIME,
         "to_time" => SmartConst::SCHEMA_CTIME,
         "description" => SmartConst::SCHEMA_TEXT,

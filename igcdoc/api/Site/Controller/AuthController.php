@@ -59,8 +59,8 @@ class AuthController extends BaseController{
         $telephone_admin_role =  $this->_site_helper->getOneValue("telephone_admin");
         $mechanical_admin_role =  $this->_site_helper->getOneValue("mechanical_admin");
         $workshop_admin_role =  $this->_site_helper->getOneValue("workshop_admin");
-        $acv_shutdown_admin_role =  $this->_site_helper->getOneValue("acv_shutdown_admin");
-        $elec_shutdown_admin_role =  $this->_site_helper->getOneValue("elec_shutdown_admin");
+        $acv_shutdown_admin_role =  $this->_site_helper->getOneValue("acv_shutdown");
+        $elec_shutdown_admin_role =  $this->_site_helper->getOneValue("elec_shutdown");
         // system admin
         $system_admin = $this->_site_helper->getOneValue("system_admin");
        

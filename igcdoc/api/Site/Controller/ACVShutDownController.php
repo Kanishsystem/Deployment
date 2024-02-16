@@ -6,6 +6,7 @@ use Core\BaseController;
 use Core\Helpers\SmartFileHelper;
 use Core\Helpers\SmartAuthHelper;
 use Site\Helpers\ACVShutDownHelper;
+use Core\Helpers\SmartData as Data;
 
 
 class ACVShutDownController extends BaseController
@@ -28,6 +29,8 @@ class ACVShutDownController extends BaseController
         // do validations
         $this->_acv_shutdown_helper->validate(ACVShutDownHelper::validations, $columns, $this->post);
         // add other columns
+        $this->post["from_date"] = Data::post_data("from_date", "DATE");
+        $this->post["to_date"] = Data::post_data("to_date", "DATE");
         $columns[] = "created_time";
         $columns[] = "sd_mt_userdb_id";
         $columns[] = "status";

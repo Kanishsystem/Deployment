@@ -6,6 +6,8 @@ use Core\BaseController;
 use Core\Helpers\SmartGeneral;
 use Core\Helpers\SmartFileHelper;
 use Core\Helpers\SmartAuthHelper;
+use Core\Helpers\SmartData as Data;
+
 
 use Site\Helpers\WorkshopHelper;
 
@@ -30,6 +32,7 @@ class WorkshopController extends BaseController
         // do validations
         $this->_workshop_helper->validate(WorkshopHelper::validations, $valid_columns, $this->post);
         $columns = ["name", "description","free_material","completion_date"]; 
+        $this->post["completion_date"] = Data::post_data("completion_date", "DATE");
         // add other columns
         $columns[] = "free_description";
         $columns[] = "created_time";
