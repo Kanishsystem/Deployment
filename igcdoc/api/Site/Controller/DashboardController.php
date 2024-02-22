@@ -3,7 +3,7 @@
 namespace Site\Controller;
 
 use Core\BaseController;
-
+use Core\Helpers\SmartAuthHelper;
 // site helpers
 use Site\Helpers\NetworkHelper;
 use Site\Helpers\ACVShutDownHelper;
@@ -16,6 +16,8 @@ use Site\Helpers\TelephoneHelper;
 use Site\Helpers\MechanicalHelper;
 use Site\Helpers\DocTypeHelper;
 use Site\Helpers\WorkshopHelper;
+use Site\Helpers\UserRoleHelper;
+use Site\Helpers\CommanComplaintHelper;
 
 
 //DashboardController
@@ -33,6 +35,8 @@ class DashboardController extends BaseController{
     private WorkshopHelper $_workshop_helper;
     private ACVShutDownHelper $_acv_shutdown_helper;
     private ElectricalShutDownHelper $_elec_shutdown_helper;
+    private UserRoleHelper $_user_role_helper;
+    private CommanComplaintHelper $_common_complaint_helper;
 
 
     function __construct($params)
@@ -50,6 +54,8 @@ class DashboardController extends BaseController{
         $this->_workshop_helper = new WorkshopHelper($this->db);
         $this->_acv_shutdown_helper = new ACVShutDownHelper($this->db);
         $this->_elec_shutdown_helper = new ElectricalShutDownHelper($this->db);
+        $this->_user_role_helper = new UserRoleHelper($this->db);
+        $this->_common_complaint_helper = new CommanComplaintHelper($this->db);
         //$this->_user_role_helper = new UserRoleHelper($this->db);
     }
 
@@ -60,6 +66,23 @@ class DashboardController extends BaseController{
        // var_dump($ac_shown_data);
         $output = array_merge($electrical_data,$ac_shown_data);
         $this->response($output);
+    }
+
+    private function get_common_complaints_dashboard(){
+        $id = SmartAuthHelper::getLoggedInId();
+        $roles = $this->_user_role_helper->getSelectedRolesWithUserId($id);
+       // var_dump($roles);
+        if($roles && count($roles) > 0){
+            $out_roles = [];
+            foreach($roles as $obj){
+                $out_roles[] = $obj->value;
+            }
+            $data = $this->_common_complaint_helper->getDashBoard($out_roles);
+            return $data;
+        }else{
+            return [];
+        }
+    
     }
     /**
      * 
@@ -85,6 +108,10 @@ class DashboardController extends BaseController{
         $db->workshopByStatus = $this->_workshop_helper->getCountByStatus();
         $db->acvShutDownByStatus = $this->_acv_shutdown_helper->getCountByStatus();
         $db->elecShutDownByStatus = $this->_elec_shutdown_helper->getCountByStatus();
+
+       // custom complaint types dashboard
+        $db->custom = $this->get_common_complaints_dashboard();
+
         $this->response($db);
     }
 

@@ -303,6 +303,17 @@ class CommanComplaintHelper extends BaseHelper
         return isset($data) ? count($data) : 0;
     }
 
+    public function getDashBoard($roles){
+
+        $from = Table::COMPLAINTS . " t1 
+        INNER JOIN " . Table::COMPLAINTTYPES . " t2 ON t1.type = t2.ID";
+        $sql = "t2.complaint_admin IN (".implode(",",$roles).") AND t1.status=10";
+        $select = ["COUNT(t1.ID) as total_count,t2.complaint_type as ctype,t2.ID as tlink"];
+        $order_by = "";
+        $group_by = "t1.type";
+        return $this->getAll($select, $from, $sql, $group_by, $order_by, [], false, [], false);
+    }
+
 
     // public function getCountByYear($year)
     // {

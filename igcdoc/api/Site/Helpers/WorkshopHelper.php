@@ -31,7 +31,7 @@ class WorkshopHelper extends BaseHelper
         "location" => SmartConst::SCHEMA_TEXT,
         "sd_mt_userdb_id" => SmartConst::SCHEMA_CUSER_ID,
         "admin_id" => SmartConst::SCHEMA_INTEGER,
-        "admin_time" => SmartConst::SCHEMA_CDATETIME,
+        "admin_time" => SmartConst::SCHEMA_DATE,
         "admin_remarks" => SmartConst::SCHEMA_VARCHAR,
         "free_material " => SmartConst::SCHEMA_INTEGER,
         "completion_date " => SmartConst::SCHEMA_DATE,

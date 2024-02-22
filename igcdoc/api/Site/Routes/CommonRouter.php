@@ -330,6 +330,8 @@ class CommonRouter
         $this->_routes["/homeimages/get_one"] = [SmartConst::REQUEST_POST, $this->_admin_only, $controller, "getOne"];
         $this->_routes["/homeimages/delete_one"] = [SmartConst::REQUEST_POST, $this->_admin_only, $controller, "deleteOne"];
         $this->_routes["/homeimages/get_one_image/{id}"] = [SmartConst::REQUEST_GET, [], $controller, "getOneImage"];
+        $this->_routes["/homeimages/get_one_image_new/{id}"] = [SmartConst::REQUEST_GET, [], $controller, "getOneImageNew"];
+  
     }
     /**
      * 

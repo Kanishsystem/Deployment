@@ -39,6 +39,7 @@ class HomeImagesController extends BaseController
         $file_path = $this->_helper->getFullFile($id);
         // move the uploaded file to path 
         $stored_file_path = SmartFileHelper::moveSingleFile("uploaded_file", $file_path);
+       // echo $stored_file_path;
         // update the file path in table
         $update_columns = ["home_image"];
         $update_data = ["home_image" => $stored_file_path];
@@ -113,8 +114,23 @@ class HomeImagesController extends BaseController
        
         $data =  $this->_helper->getOneData($id);
         // 
-        $pdf_path =  $this->_helper->getFolder($id) . $data->home_image;
+        $pdf_path =  $this->_helper->getFolder($id). $data->home_image;
         // echo $pdf_path;
         $this->responseImage($pdf_path);
+       // $final_path = SmartFileHelper::getDataPath().DS . $pdf_path;
+      //  $this->responseFileBase64($final_path);
+    }
+
+    public function getOneImageNew()
+    {
+        $id = isset($this->params["id"]) ? $this->params["id"] : 0;
+       
+        $data =  $this->_helper->getOneData($id);
+        // 
+        $pdf_path =  $this->_helper->getFolder($id). $data->home_image;
+        // echo $pdf_path;
+       // $this->responseImage($pdf_path);
+        $final_path = SmartFileHelper::getDataPath(). $pdf_path;
+        $this->responseFileBase64($final_path);
     }
 }
