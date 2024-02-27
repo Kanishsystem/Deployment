@@ -307,7 +307,7 @@ class CommanComplaintHelper extends BaseHelper
 
         $from = Table::COMPLAINTS . " t1 
         INNER JOIN " . Table::COMPLAINTTYPES . " t2 ON t1.type = t2.ID";
-        $sql = "t2.complaint_admin IN (".implode(",",$roles).") AND t1.status=10";
+        $sql = "t2.complaint_admin IN (".implode(",",$roles).") AND t1.status=10 GROUP BY t1.type";
         $select = ["COUNT(t1.ID) as total_count,t2.complaint_type as ctype,t2.ID as tlink"];
         $order_by = "";
         $group_by = "t1.type";

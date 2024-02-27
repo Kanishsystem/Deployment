@@ -203,7 +203,7 @@ class UserHelper extends BaseHelper
     {
         $from = Table::USERS." t1 
         LEFT JOIN ".Table::ORGANISATION." t2 ON t1.sd_org_id = t2.ID ";
-        $select = ["t1.*,t2.sd_org_name AS sd_org_id"];
+        $select = ["t1.*,t2.sd_org_name AS sd_org_id_desc"];
        // $select[] = "(SELECT GROUP_CONCAT(t2.sd_mt_role_id) FROM ".Table::USERROLE." t2 WHERE t2.sd_mt_userdb_id=t1.ID) as role";
         $sql = "t1.ID=:ID";
         $data_in = ["ID" => $id];
