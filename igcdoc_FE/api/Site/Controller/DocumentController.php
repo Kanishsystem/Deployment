@@ -270,7 +270,22 @@ class DocumentController extends BaseController{
         $pdf_path =  $this->_document_helper->getFullFile($id) .".pdf";
        // echo $pdf_path;
         $this->responseFileBase64(SmartFileHelper::getDataPath()  . $pdf_path);
+       //responsePdf
     }
+
+    public function getDocNew(){
+       // http://localhost/igcardoc_backend/api/document/get_doc
+       $id =  79;
+       if($id < 0){
+           \CustomErrorHandler::triggerInvalid("Invalid ID");
+       }
+      // $data = $this->_document_helper->getOneData($id);
+       // 
+       $pdf_path =  $this->_document_helper->getFullFile($id) .".pdf";
+       //
+       $this->responsePdfNew($pdf_path);
+    }
+
    
     public function updateApp()
     {

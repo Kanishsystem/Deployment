@@ -99,6 +99,8 @@ class CommonRouter
         $this->_routes["/document/get_doc_type"] = [SmartConst::REQUEST_POST, $this->_admin_user, $controller, "getDocByType"];
         $this->_routes["/document/get_doc_category_and_type"] = [SmartConst::REQUEST_POST, $this->_admin_user, $controller, "getDocByCategoryAndType"];
         $this->_routes["/document/get_doc"] = [SmartConst::REQUEST_POST, $this->_admin_user, $controller, "getDoc"];
+        //$this->_routes["/document/get_doc"] = [SmartConst::REQUEST_GET, $controller, "getDocNew"];
+       
         // approve
         $this->_routes["/document/update_app"] = [SmartConst::REQUEST_POST, $this->_admin_user, $controller, "updateApp"];
     }
@@ -516,6 +518,7 @@ class CommonRouter
     private function awards_routes(){
         $controller = "AwardsController";       
         $this->_routes["/awards/insert"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"insert"];
+        $this->_routes["/awards/update"] = [SmartConst::REQUEST_POST, $this->_admin_user, $controller, "update"];
         $this->_routes["/awards/get_all"] = [SmartConst::REQUEST_GET,$controller,"getAll"]; 
         $this->_routes["/awards/get_one"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"getOne"];
         $this->_routes["/awards/delete_one"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"deleteOne"];
@@ -544,6 +547,7 @@ class CommonRouter
     private function gallery_routes(){
         $controller = "GalleryController";       
         $this->_routes["/gallery/insert"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"insert"];
+        $this->_routes["/gallery/update"] = [SmartConst::REQUEST_POST, $this->_admin_user, $controller, "update"];
         $this->_routes["/gallery/get_all"] = [SmartConst::REQUEST_GET,$controller,"getAll"]; 
         $this->_routes["/gallery/get_one"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"getOne"];
         $this->_routes["/gallery/delete_one"] = [SmartConst::REQUEST_POST,$this->_admin_user,$controller,"deleteOne"];

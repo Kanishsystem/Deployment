@@ -46,6 +46,35 @@ class GalleryController extends BaseController{
     /**
      * 
      */
+    public function update(){
+        $id = isset($this->post["id"]) ? intval($this->post["id"]) : 0;
+        if ($id < 1) {
+            \CustomErrorHandler::triggerInvalid("Invalid ID");
+        }
+        $validate_columns = [ "event_name","description"];        
+        // do validations
+        $this->_gallery_helper->validate(GalleryHelper::validations,$validate_columns,$this->post);
+        $columns = [ "event_name","created_by","created_time","description"]; 
+         // insert and get id
+         $updateId = $this->_gallery_helper->update($columns,$this->post, $id);
+          // process the file
+        $file_path = $this->_gallery_helper->getFullFile($updateId);
+        if( isset($_FILES["uploaded_file"])){
+        // move the uploaded file to path 
+        $stored_file_path = SmartFileHelper::moveSingleFile("uploaded_file",$file_path);
+        // update the file path in table
+        $update_columns = ["img_loc"];
+        $update_data = ["img_loc"=>$stored_file_path];
+        $this->_gallery_helper->update($update_columns,$update_data,$updateId);   
+        } 
+         // add log
+        $this->addLog("UPDATED AN EVENT IMAGE","",SmartAuthHelper::getLoggedInUserName());
+        //
+         $this->response($updateId);
+    }
+    /**
+     * 
+     */
 
     public function getAll(){      
         $data = $this->_gallery_helper->getAllData();

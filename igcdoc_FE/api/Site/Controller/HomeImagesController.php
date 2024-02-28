@@ -57,13 +57,21 @@ class HomeImagesController extends BaseController
         if ($id < 1) {
             \CustomErrorHandler::triggerInvalid("Invalid ID");
         }
-        $columns = ["home_image"];
+        $columns = ["uploaded_file"];
         // do validations
         $this->_helper->validate(ActivityHelper::validations, $columns, $this->post);
         // add other columns
         //   $columns[]="last_modified_time";
         // insert and get id
-        $id = $this->_helper->update($columns, $this->post, $id);
+        $file_path = $this->_helper->getFullFile($id);
+        // move the uploaded file to path 
+        $stored_file_path = SmartFileHelper::moveSingleFile("uploaded_file", $file_path);
+       // echo $stored_file_path;
+        // update the file path in table
+        $update_columns = ["home_image"];
+        $update_data = ["home_image" => $stored_file_path];
+        $this->_helper->update($update_columns, $update_data, $id);
+
         $this->addLog("UPDATED ACTIVITY", "", SmartAuthHelper::getLoggedInUserName());
         $this->response($id);
     }

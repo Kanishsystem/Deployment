@@ -111,6 +111,34 @@ class BaseController
         }
     }
 
+    public function responsePdfNew($file_path)
+    {
+        $full_path = SmartFileHelper::getDataPath() . $file_path;
+        // echo $full_path;
+        //exit();
+        if (file_exists($full_path)) {
+            header('Content-type: application/pdf');
+	        header('Content-Disposition: inline; filename='.basename($full_path).'');
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . filesize($full_path));
+            @readfile($full_path); 
+            /*
+            header('Content-Description: File Transfer');
+            header('Content-Transfer-Encoding: binary');
+            header('Accept-Ranges: bytes');
+            header('Content-Disposition: inline; filename=' . basename($full_path));
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($full_path));
+            readfile($full_path);
+            */
+            exit;
+        } else {
+            //  \CustomErrorHandler::triggerInternalError("Invalid Pdf Path");
+        }
+    }
+
     public function responseImage($file_path)
     {
         $full_path = SmartFileHelper::getDataPath() . $file_path;

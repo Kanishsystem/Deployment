@@ -48,6 +48,37 @@ class AwardsController extends BaseController{
     /**
      * 
      */
+    public function update(){
+        $id = isset($this->post["id"]) ? intval($this->post["id"]) : 0;
+        if ($id < 1) {
+            \CustomErrorHandler::triggerInvalid("Invalid ID");
+        }
+        // 
+        $validate_columns = [ "title","uploaded_file","award_date"];    
+        $this->post["award_date"] = Data::post_data("award_date", "DATE");    
+        // do validations
+        $this->_awards_helper->validate(AwardsHelper::validations,$validate_columns,$this->post);
+        $columns = [ "title","award_date","created_by","created_time"]; 
+         // insert and get id
+         $updateId = $this->_awards_helper->update($columns,$this->post, $id);
+          // process the file
+        $file_path = $this->_awards_helper->getFullFile($updateId);
+        if( isset($_FILES["uploaded_file"])){
+        // move the uploaded file to path 
+        $stored_file_path = SmartFileHelper::moveSingleFile("uploaded_file",$file_path);
+        // update the file path in table
+        $update_columns = ["img_loc"];
+        $update_data = ["img_loc"=>$stored_file_path];
+        $this->_awards_helper->update($update_columns,$update_data,$updateId);   
+        } 
+         // add log
+        $this->addLog("UPDATED AN AWARD IMAGE","",SmartAuthHelper::getLoggedInUserName());
+        //
+         $this->response($updateId);
+    }
+    /**
+     * 
+     */
 
     public function getAll(){      
         $data = $this->_awards_helper->getAllData();

@@ -31,14 +31,14 @@ class HomeImagesHelper extends BaseHelper
      * 
      */
     const validations = [
-        /*
+        
         "home_image" => [
             [
                 "type" => SmartConst::VALID_REQUIRED,
-                "msg" => "Please enter Home Image"
+                "msg" => "Please Upload Home Image"
             ],
 
-        ],*/
+        ],
         "uploaded_file" => [
             [
                 "type" => SmartConst::VALID_FILE_REQUIRED,
